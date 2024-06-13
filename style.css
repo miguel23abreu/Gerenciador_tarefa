@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #f3f3f5;
+    color: #333;
+    font-family: "Ubuntu", sans-serif;
+}
+
+.container{
+    background-color: #fff;
+    max-width: 450px;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 12px;
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.form{
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.form form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form label{
+    font-weight: bold;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.form input{
+    height: 32px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding-left: 12px;
+    border: 1px solid #999;
+    border-radius: 4px;
+}
+
+.form input:focus{
+    background: #f0f0f5;
+}
+
+.form button{
+    background: #ab47bc;
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.form button:hover{
+    background: #ed84ff;
+    transition: background 0.3s;
+}
+.separator {
+    background: #f0f0f5;
+    height: 2px;
+    border-radius: 1px;
+}
+
+
+.list-talks{
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.list-talks ul{
+    list-style: none;
+}
+.list-talks ul li{
+    background: #4db6ad;
+    height: 52px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s;
+} 
+
+.list-talks ul li:hover{
+    background: #49cec7;
+}
+
+.btn-clear{
+    background: #a93226;
+    padding: 0 12px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    height: 32px;
+    transition: background 0.3s;
+}
+
+.btn-clear:hover{
+    background:  #e74c3c;
+}
+.footer{
+    background: #f0f0f5;
+    border-radius: 4px;
+    padding: 12px;
+}
+
+.footer p{
+    color: #999;
+    font-size: 12px;
+}
