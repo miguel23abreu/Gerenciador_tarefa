@@ -5,27 +5,14 @@ if( !isset($_SESSION['tasks'])){
     $_SESSION['tasks'] = array();
 }
 
-if( isset($_GET['task_name'])){
-    if($_GET['task_name'] != ""){
-        array_push($_SESSION['tasks'], $_GET['task_name']);
-        unset($_GET['task_name']);
-    }
-    else{
-        $_SESSION['message'] = "O campo 'nome da tarefa' esta vazio";
-    }
-}
 if( isset($_GET['clear'])){
     unset($_SESSION['tasks']);
 }
 
-if(isset($_GET['key'])){
-    array_splice($_SESSION['tasks'], $_GET['key'], 1);
-    unset($_GET['key']);
-}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,9 +28,16 @@ if(isset($_GET['key'])){
             <h1>Gerenciador de tarefas</h1>
         </div>
         <div class="form">
-            <form action="" method="get">
+            <form action="task.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="insert" value="insert">
                 <label for="task_name"></label>
                 <input type="text" name="task_name" placeholder="Nome da tarefa">
+                <label for="task_description">Descrição: </label>
+                <input type="text" name="task_description" placeholder="Descrição da Tarefa">
+                <label for="task_data">Data</label>
+                <input type="date" name="task_date">
+                <label for="task_image">Imagem:</label>
+                <input type="file" name="task_image">
                 <button type="submit">Cadastrar</button>
             </form>
             <?php
@@ -62,12 +56,12 @@ if(isset($_GET['key'])){
                     echo "<ul>";
                     foreach($_SESSION['tasks'] as $key => $task){
                         echo "<li>
-                                <span>$task</span>
+                                <span>" . $task['task_name'] . "</span>
                                 <button type='button' class='btn-clear' onclick='deletar$key()'>Remover</button>
                                 <script>
                                     function deletar$key(){
                                         if(confirm('Confirmar remocao?')){
-                                            window.location = 'http://127.0.1.1/Projeto_php/?key=$key';
+                                            window.location = 'http://127.0.1.1/Projeto_php/task.php?key=$key';
                                         }
                                         return false;
                                     }
