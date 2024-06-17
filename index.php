@@ -5,10 +5,7 @@ if( !isset($_SESSION['tasks'])){
     $_SESSION['tasks'] = array();
 }
 
-if( isset($_GET['clear'])){
-    unset($_SESSION['tasks']);
-}
-
+var_dump($_SESSION['tasks']);
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +58,7 @@ if( isset($_GET['clear'])){
                                 <script>
                                     function deletar$key(){
                                         if(confirm('Confirmar remocao?')){
-                                            window.location = 'http://127.0.1.1/Projeto_php/task.php?key=$key';
+                                            window.location = 'http://127.0.0.1/Projeto_php/task.php?key=$key';
                                         }
                                         return false;
                                     }
@@ -71,10 +68,6 @@ if( isset($_GET['clear'])){
                     echo "</ul>";
                 }
             ?>
-            <form action="" method="get">
-                <input type="hidden" name="clear" value="clear">
-                <button type="submit" class="btn-clear">Limpar Tarefas</button>
-            </form>
         </div>
         <div class="footer">
             <p>Desenvolvido por Miguel Abreu de Amorim Neto</p>

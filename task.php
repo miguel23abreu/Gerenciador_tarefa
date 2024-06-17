@@ -5,9 +5,9 @@
             if($_FILES['task_image']){
                 $ext = strtolower(substr( $_FILES['task_image']['name'], -4));
                 $file_name = md5(date('Y.m.d.H.i.s')) . $ext;
-                $dir = 'var/www/html/Projeto_php/upload';
+                $dir = 'upload/';
 
-                move_uploaded_file( $_FILE['task_image']['tmp_name'], $dir . $file_name);
+                move_uploaded_file( $_FILE['task_image']['tmp_name'], $dir.$file_name);
             }
             $data = [
                 'task_name' => $_POST['task_name'],
@@ -21,18 +21,18 @@
             unset($_POST['task_date']);
 
             var_dump($_SESSION['tasks']);
-            header('Location:http://127.0.1.1/Projeto_php');
+            header('Location:http://127.0.0.1/Projeto_php/index.php');
         }
         else{
             $_SESSION['message'] = "O campo 'nome da tarefa' esta vazio";
-            header('Location:http://127.0.1.1/Projeto_php');
+            header('Location:http://127.0.0.1/Projeto_php/index.php');
         }
     }
 
     if(isset($_GET['key'])){
         array_splice($_SESSION['tasks'], $_GET['key'], 1);
         unset($_GET['key']);
-        header('Location:http://127.0.1.1/Projeto_php');
+        header('Location:http://127.0.0.1/Projeto_php/index.php');
     }
 
     var_dump($data);
