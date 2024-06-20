@@ -36,4 +36,5 @@
     }
 
     var_dump($data);
+    var_dump($_SESSION);
 ?>
