@@ -53,12 +53,12 @@ var_dump($_SESSION['tasks']);
                     echo "<ul>";
                     foreach($_SESSION['tasks'] as $key => $task){
                         echo "<li>
-                                <span>" . $task['task_name'] . "</span>
+                                <a href='details.php?key=$key'>" . $task['task_name'] . "</a>
                                 <button type='button' class='btn-clear' onclick='deletar$key()'>Remover</button>
                                 <script>
                                     function deletar$key(){
                                         if(confirm('Confirmar remocao?')){
-                                            window.location = 'http://127.0.0.1/Projeto_php/task.php?key=$key';
+                                            window.location = 'http://localhost:8000/task.php?key=$key';
                                         }
                                         return false;
                                     }
