@@ -19,6 +19,19 @@ body{
     padding: 12px;
 }
 
+.alert-sucess{
+    background: #C5E1A5;
+    margin: 4px;
+    padding: 12px;
+    color: #7CB345;
+}
+
+.alert-error{
+    background: #FFAB91;
+    margin: 4px;
+    padding: 12px;
+    color: #F4511E;
+}
 .header{
     display: flex;
     justify-content: center;

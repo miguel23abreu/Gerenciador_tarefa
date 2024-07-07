@@ -1,11 +1,17 @@
 <?php
+
+    require __DIR__ . '/connect.php';
     session_start();
 
 if( !isset($_SESSION['tasks'])){
     $_SESSION['tasks'] = array();
 }
 
-var_dump($_SESSION['tasks']);
+$stmt = $pdo->prepare("SELECT  * FROM tasks");
+$stmt->execute();
+$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+//var_dump($_SESSION['tasks']);
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +27,24 @@ var_dump($_SESSION['tasks']);
 </head>
 <body>
     <div class="container">
+        <?php
+            if(isset($_SESSION['sucess'])){
+                echo '<div class="alert-sucess">' . $_SESSION['sucess'] . '</div>';
+            };
+            
+        ?>
+        <?php
+            unset($_SESSION['sucess'])
+        ?>
+        
+        <?php
+            if(isset($_SESSION['error'])){
+                echo '<div class="alert-errir">' . $_SESSION['error'] . '</div>';
+            };
+        ?>
+        <?php
+            unset($_SESSION['error'])
+        ?>
         <div class="header">
             <h1>Gerenciador de tarefas</h1>
         </div>
@@ -51,14 +75,14 @@ var_dump($_SESSION['tasks']);
             <?php
                 if( isset($_SESSION['tasks'])){
                     echo "<ul>";
-                    foreach($_SESSION['tasks'] as $key => $task){
+                    foreach($stmt->fetchAll() as $task){
                         echo "<li>
-                                <a href='details.php?key=$key'>" . $task['task_name'] . "</a>
-                                <button type='button' class='btn-clear' onclick='deletar$key()'>Remover</button>
+                                <a href='details.php?key=" . $task['id']. "'>" . $task['task_name'] . "</a>
+                                <button type='button' class='btn-clear' onclick='deletar" . $task['id'] ."()'>Remover</button>
                                 <script>
-                                    function deletar$key(){
+                                    function deletar" . $task['id']. "(){
                                         if(confirm('Confirmar remocao?')){
-                                            window.location = 'http://localhost:8000/task.php?key=$key';
+                                            window.location = 'http://localhost:8000/task.php?key=" .$task['id']. "';
                                         }
                                         return false;
                                     }

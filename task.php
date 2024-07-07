@@ -1,5 +1,7 @@
 <?php
+    require __DIR__ . '/connect.php';
     session_start();
+
     if( isset($_POST['task_name'])){
         if($_POST['task_name'] != ""){
             if(isset($_FILES['task_image'])){
@@ -9,29 +11,39 @@
 
                 move_uploaded_file( $_FILE['task_image']['tmp_name'], $dir.$file_name);
             }
-            $data = [
-                'task_name' => $_POST['task_name'],
-                'task_description' => $_POST['task_description'],
-                'task_date' => $_POST['task_date'],
-                'task_image' => $file_name
-            ];
-            array_push($_SESSION['tasks'], $data);
-            unset($_POST['task_name']);
-            unset($_POST['task_description']);
-            unset($_POST['task_date']);
+            $stmt = $pdo->prepare('INSERT INTO tasks(task_name, task_description, task_image, task_date) VALUES (:name, :description, :image, :date)');
+            $stmt->bindParam('name', $_POST['task_name']);
+            $stmt->bindParam('description', $_POST['task_description']);
+            $stmt->bindParam('image', $file_name);
+            $stmt->bindParam('date', $_POST['task_date']);
 
-            var_dump($_SESSION['tasks']);
-            header('Location:http://localhost:8000');
+            if($stmt->execute() ){
+                $_SESSION['sucess'] = "Dados Cadastrados.";
+                header('Location:http://localhost:8000/index.php');    
+            }
+            else{
+                $_SESSION['error'] = "Dados não Cadastrados.";
+                header('Location:http://localhost:8000/index.php');
+            }
+            
         }
         else{
             $_SESSION['message'] = "O campo 'nome da tarefa' esta vazio";
-            header('Location:http://localhost:8000');
+            header('Location:http://localhost:8000/index.php');
         }
     }
 
     if(isset($_GET['key'])){
-        array_splice($_SESSION['tasks'], $_GET['key'], 1);
-        unset($_GET['key']);
+        $stmt = $pdo->prepare('DELETE FROM tasks WHERE id = :id');
+        $stmt->bindParam(':id', $_GET['key']);
+        if($stmt->execute() ){
+            $_SESSION['sucess'] = "Dados Removidos.";
+            header('Location:http://localhost:8000/index.php');    
+        }
+        else{
+            $_SESSION['error'] = "Dados não Removidos.";
+            header('Location:http://localhost:8000/index.php');
+        }
         header('Location:http://localhost:8000');
     }
 

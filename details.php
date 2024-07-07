@@ -1,7 +1,11 @@
 <?php
-
+require __DIR__ . '/connect.php';
 session_start();
-$data = $_SESSION['tasks'][$_GET['key']];
+$stmt = $pdo->prepare("SELECT * from tasks WHERE id = :id");
+$stmt->bindParam(':id', $_GET['key']);
+$stmt->execute();
+$data = $stmt->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
